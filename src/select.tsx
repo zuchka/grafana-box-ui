@@ -7,6 +7,49 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
 import { Container } from '@mui/material';
 
+function WorkflowPicker(props: FormControlProps) {
+  const [workflow, setWorkflow] = React.useState('');
+  const handleWorkflowChange = (event: SelectChangeEvent) => {
+    setWorkflow(event.target.value);
+    };
+  return (
+    <div>
+      <FormControl {...props}>
+        <InputLabel id="demo-simple-select-helper-label">Workflow</InputLabel>
+        <Select
+          labelId="demo-simple-select-helper-label"
+          id="demo-simple-select-helper"
+          value={workflow}
+          label="Workflow"
+          onChange={handleWorkflowChange}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={"package"}>Package</MenuItem>
+          <MenuItem value={"binary"}>Binary</MenuItem>
+          <MenuItem value={"devenv"}>Developer Environment</MenuItem>
+          <MenuItem value={"e2e-binary"}>E2E Release Test</MenuItem>
+        </Select>
+        <FormHelperText>Choose a Workflow</FormHelperText>
+      </FormControl>
+      {workflow.startsWith("package") && 
+        <div>
+          <FooPicker />
+          <FooPicker />
+          <FooPicker />
+        </div>}
+      {workflow.startsWith("binary") && 
+        <BarPicker />}
+      {workflow.startsWith("devenv") && 
+        <FooPicker />}
+      {workflow.startsWith("e2e-binary") && 
+        <BarPicker />}
+
+    </div>
+  );
+}
+
 function DistroPicker(props: FormControlProps) {
   const [distro, setDistro] = React.useState('');
   const bar: any = distro.length
@@ -39,24 +82,18 @@ function DistroPicker(props: FormControlProps) {
         </Select>
         <FormHelperText>Choose a Linux Distribution</FormHelperText>
       </FormControl>
-      <div>
-        {distro.startsWith("centos") && 
-          <div>
-            <FooPicker />
-            <FooPicker />
-            <FooPicker />
-          </div>}
-        {distro.startsWith("debian") && 
-          <BarPicker />}
-        {distro.startsWith("rocky") && 
-          <FooPicker />}
-        {distro.startsWith("ubuntu") && 
-          <BarPicker />}
-
-      </div>
     </div>
   );
 }
+
+// function BinaryPicker(props: FormControlProps) {
+// function ReleaseVersionPicker(props: FormControlProps) {
+// function EnterprisePicker(props: FormControlProps) {
+// function NodePicker(props: FormControlProps) {
+// function BranchPicker(props: FormControlProps) {
+// function DummyDataPicker(props: FormControlProps) {
+// function CpuPicker(props: FormControlProps) {
+// function ReleasePicker(props: FormControlProps) {
 
 function FooPicker(props: FormControlProps) {
   const [foo, setFoo] = React.useState('');
@@ -123,6 +160,10 @@ export default function SelectLabels() {
   return (
     <Container >
       <DistroPicker />
+      <WorkflowPicker />
     </Container>
   );
 }
+
+// put cpu and enterprise on same row as distro
+// below, dynamically display node, release branch, remote branch, release version (binary), DummyData 
