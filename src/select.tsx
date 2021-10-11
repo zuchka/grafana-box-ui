@@ -5,7 +5,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import FormControl, { FormControlProps } from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
-import { Container } from '@mui/material';
+import { Box } from '@mui/material';
 
 function WorkflowPicker(props: FormControlProps) {
   const [workflow, setWorkflow] = React.useState('');
@@ -14,7 +14,7 @@ function WorkflowPicker(props: FormControlProps) {
     };
   return (
     <div>
-      <FormControl {...props}>
+      <FormControl {...props} >
         <InputLabel id="demo-simple-select-helper-label">Workflow</InputLabel>
         <Select
           labelId="demo-simple-select-helper-label"
@@ -31,22 +31,23 @@ function WorkflowPicker(props: FormControlProps) {
           <MenuItem value={"devenv"}>Developer Environment</MenuItem>
           <MenuItem value={"e2e-binary"}>E2E Release Test</MenuItem>
         </Select>
-        <FormHelperText>Choose a Workflow</FormHelperText>
-      </FormControl>
-      {workflow.startsWith("package") && 
-        <div>
-          <FooPicker />
-          <FooPicker />
-          <FooPicker />
-        </div>}
-      {workflow.startsWith("binary") && 
-        <BarPicker />}
-      {workflow.startsWith("devenv") && 
-        <FooPicker />}
-      {workflow.startsWith("e2e-binary") && 
-        <BarPicker />}
+        <FormHelperText >Choose a Workflow</FormHelperText>
 
-    </div>
+        {/* pull out into separate function */}
+        {workflow.startsWith("package") && 
+          <div>
+            <FooPicker />
+            <FooPicker />
+            <FooPicker />
+          </div>}
+        {workflow.startsWith("binary") && 
+          <BarPicker />}
+        {workflow.startsWith("devenv") && 
+          <FooPicker />}
+        {workflow.startsWith("e2e-binary") && 
+          <BarPicker />}
+        </FormControl>
+      </div>
   );
 }
 
@@ -85,15 +86,6 @@ function DistroPicker(props: FormControlProps) {
     </div>
   );
 }
-
-// function BinaryPicker(props: FormControlProps) {
-// function ReleaseVersionPicker(props: FormControlProps) {
-// function EnterprisePicker(props: FormControlProps) {
-// function NodePicker(props: FormControlProps) {
-// function BranchPicker(props: FormControlProps) {
-// function DummyDataPicker(props: FormControlProps) {
-// function CpuPicker(props: FormControlProps) {
-// function ReleasePicker(props: FormControlProps) {
 
 function FooPicker(props: FormControlProps) {
   const [foo, setFoo] = React.useState('');
@@ -158,12 +150,23 @@ function BarPicker(props: FormControlProps) {
 export default function SelectLabels() {
 
   return (
-    <Container >
-      <DistroPicker />
-      <WorkflowPicker />
-    </Container>
+    <div>
+      <Box>
+        <DistroPicker/>
+        <WorkflowPicker/>
+      </Box>
+    </div>
   );
 }
 
 // put cpu and enterprise on same row as distro
-// below, dynamically display node, release branch, remote branch, release version (binary), DummyData 
+// below, dynamically display node, release branch, remote branch, release version (binary), DummyData
+
+// function BinaryPicker(props: FormControlProps) {
+// function ReleaseVersionPicker(props: FormControlProps) {
+// function EnterprisePicker(props: FormControlProps) {
+// function NodePicker(props: FormControlProps) {
+// function BranchPicker(props: FormControlProps) {
+// function DummyDataPicker(props: FormControlProps) {
+// function CpuPicker(props: FormControlProps) {
+// function ReleasePicker(props: FormControlProps) {
