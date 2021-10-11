@@ -5,56 +5,11 @@ import FormHelperText from '@mui/material/FormHelperText';
 import FormControl, { FormControlProps } from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
-import { Box } from '@mui/material';
-
-function WorkflowPicker(props: FormControlProps) {
-  const [workflow, setWorkflow] = React.useState('');
-  const handleWorkflowChange = (event: SelectChangeEvent) => {
-    setWorkflow(event.target.value);
-    };
-  return (
-    <div>
-      <FormControl {...props} >
-        <InputLabel id="demo-simple-select-helper-label">Workflow</InputLabel>
-        <Select
-          labelId="demo-simple-select-helper-label"
-          id="demo-simple-select-helper"
-          value={workflow}
-          label="Workflow"
-          onChange={handleWorkflowChange}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={"package"}>Package</MenuItem>
-          <MenuItem value={"binary"}>Binary</MenuItem>
-          <MenuItem value={"devenv"}>Developer Environment</MenuItem>
-          <MenuItem value={"e2e-binary"}>E2E Release Test</MenuItem>
-        </Select>
-        <FormHelperText >Choose a Workflow</FormHelperText>
-
-        {/* pull out into separate function */}
-        {workflow.startsWith("package") && 
-          <div>
-            <FooPicker />
-            <FooPicker />
-            <FooPicker />
-          </div>}
-        {workflow.startsWith("binary") && 
-          <BarPicker />}
-        {workflow.startsWith("devenv") && 
-          <FooPicker />}
-        {workflow.startsWith("e2e-binary") && 
-          <BarPicker />}
-        </FormControl>
-      </div>
-  );
-}
+import { Box, Container } from '@mui/material';
+import { BinaryPicker, DevenvPicker, E2eBinaryPicker } from './select-helpers'
 
 function DistroPicker(props: FormControlProps) {
   const [distro, setDistro] = React.useState('');
-  const bar: any = distro.length
-  // const [workflow, setWorkflow] = React.useState('');
   const handleDistroChange = (event: SelectChangeEvent) => {
     setDistro(event.target.value);
     };
@@ -87,86 +42,105 @@ function DistroPicker(props: FormControlProps) {
   );
 }
 
-function FooPicker(props: FormControlProps) {
-  const [foo, setFoo] = React.useState('');
-  const bar: any = foo.length
-  // const [workflow, setWorkflow] = React.useState('');
-  const handleFooChange = (event: SelectChangeEvent) => {
-    setFoo(event.target.value);
+function LicensePicker(props: FormControlProps) {
+  const [license, setLicense] = React.useState('');
+  const handleLicenseChange = (event: SelectChangeEvent) => {
+    setLicense(event.target.value);
     };
 
   return (
     <div>
       <FormControl {...props}>
-        <InputLabel id="demo-simple-select-helper-label">FOO</InputLabel>
+        <InputLabel id="demo-simple-select-helper-label">Enterprise?</InputLabel>
         <Select
           labelId="demo-simple-select-helper-label"
           id="demo-simple-select-helper"
-          value={foo}
-          label="foo"
-          onChange={handleFooChange}
+          value={license}
+          label="license"
+          onChange={handleLicenseChange}
         >
           <MenuItem value="">
-            <em>None</em>
+            <em>license</em>
           </MenuItem>
-          <MenuItem value={"Fooooo"}>Foooo</MenuItem>
-          <MenuItem value={"FOOOOO"}>FOOOO</MenuItem>
+          <MenuItem value={"oss"}>OSS</MenuItem>
+          <MenuItem value={"enterprise"}>Enterprise</MenuItem>
         </Select>
-        <FormHelperText>Choose a Foo</FormHelperText>
+        <FormHelperText>Enterprise or OSS?</FormHelperText>
       </FormControl>
     </div>
   );
 }
 
-function BarPicker(props: FormControlProps) {
-  const [bar, setBar] = React.useState('');
-  const handleBarChange = (event: SelectChangeEvent) => {
-    setBar(event.target.value);
+function CpuPicker(props: FormControlProps) {
+  const [cpu, setCpu] = React.useState('');
+  const handleCpuChange = (event: SelectChangeEvent) => {
+    setCpu(event.target.value);
     };
 
   return (
     <div>
       <FormControl {...props}>
-        <InputLabel id="demo-simple-select-helper-label">BAR</InputLabel>
+        <InputLabel id="demo-simple-select-helper-label">Intel or Amd?</InputLabel>
         <Select
           labelId="demo-simple-select-helper-label"
           id="demo-simple-select-helper"
-          value={bar}
-          label="bar"
-          onChange={handleBarChange}
+          value={cpu}
+          label="cpu"
+          onChange={handleCpuChange}
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value={"Barooo"}>Barrr</MenuItem>
-          <MenuItem value={"FOOOOO"}>BARRR</MenuItem>
+          <MenuItem value={"intel"}>Intel</MenuItem>
+          <MenuItem value={"amd"}>AMD</MenuItem>
         </Select>
-        <FormHelperText>Choose a Bar</FormHelperText>
+        <FormHelperText>Choose a CPU</FormHelperText>
       </FormControl>
     </div>
+  );
+}
+
+function WorkflowPicker() {
+  const [workflow, setWorkflow] = React.useState('');
+  const handleWorkflowChange = (event: SelectChangeEvent) => {
+    setWorkflow(event.target.value);
+    };
+
+  return (
+    <div>
+      <FormControl>
+        <InputLabel id="demo-simple-select-helper-label">Workflow</InputLabel>
+        <Select
+          labelId="demo-simple-select-helper-label"
+          id="demo-simple-select-helper"
+          value={workflow}
+          label="Workflow"
+          onChange={handleWorkflowChange}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={"package"}>Package</MenuItem>
+          <MenuItem value={"binary"}>Binary</MenuItem>
+          <MenuItem value={"devenv"}>Developer Environment</MenuItem>
+          <MenuItem value={"e2e-binary"}>E2E Release Test</MenuItem>
+        </Select>
+        <FormHelperText >Choose a Workflow</FormHelperText>
+        {workflow.startsWith("binary") && <BinaryPicker />}         
+        {workflow.startsWith("devenv") && <DevenvPicker />}                    
+        {workflow.startsWith("e2e-binary") && <E2eBinaryPicker />}         
+        </FormControl>
+      </div>
   );
 }
 
 export default function SelectLabels() {
-
   return (
-    <div>
-      <Box>
-        <DistroPicker/>
+    <Container>
+        <DistroPicker  />
+        <LicensePicker />
+        <CpuPicker     />
         <WorkflowPicker/>
-      </Box>
-    </div>
+    </Container>
   );
 }
-
-// put cpu and enterprise on same row as distro
-// below, dynamically display node, release branch, remote branch, release version (binary), DummyData
-
-// function BinaryPicker(props: FormControlProps) {
-// function ReleaseVersionPicker(props: FormControlProps) {
-// function EnterprisePicker(props: FormControlProps) {
-// function NodePicker(props: FormControlProps) {
-// function BranchPicker(props: FormControlProps) {
-// function DummyDataPicker(props: FormControlProps) {
-// function CpuPicker(props: FormControlProps) {
-// function ReleasePicker(props: FormControlProps) {
