@@ -12,7 +12,7 @@ export default function SelectLabels() {
       alignItems="flex-start"
     >
       <Grid item xs={6} spacing={3}>
-        <Picker.DistroPicker />
+        <Picker.DistroPicker  />
         <Picker.LicensePicker />
         <Picker.CpuPicker     />
         <Picker.WorkflowPicker/>

@@ -35,6 +35,7 @@ export function DistroPicker() {
     const handleDistroChange = (event: SelectChangeEvent) => {
       setDistro(event.target.value);
       };
+
     return (
       <Stack spacing={3}>
         <FormControl>
@@ -125,31 +126,31 @@ export function WorkflowPicker() {
 
 
 function DevenvPicker() {
-    return (
-      <Stack spacing={3}>
-            <DummyDbPicker />
-            <SharedOptions />
-      </Stack>
-      );
-    }
+  return (
+    <Stack spacing={3}>
+          <DummyDbPicker />
+          <SharedOptions />
+    </Stack>
+    );
+  }
 
 function E2eBinaryPicker() {
-    return (
-      <Stack spacing={3}>
-            <BinaryPicker />
-            <SharedOptions />
-      </Stack>
-      );
-    }
+  return (
+    <Stack spacing={3}>
+          <BinaryPicker  />
+          <SharedOptions />
+    </Stack>
+    );
+  }
 
 function SharedOptions() {
-    return (
-      <Stack spacing={3}>
-            <BranchPicker />
-            <NodePicker />
-      </Stack>
-      );
-    }
+  return (
+    <Stack spacing={3}>
+          <BranchPicker />
+          <NodePicker   />
+    </Stack>
+    );
+  }
 
 function BranchPicker() {
   const [branch, setBranch] = React.useState('');
@@ -174,43 +175,43 @@ function BranchPicker() {
   }
   
 function NodePicker() {
-    const [node, setNode] = React.useState('');
-    const handleNodeChange = (event: SelectChangeEvent) => {
-      setNode(event.target.value);
-      };
-    
-    return (
-        <div>
-          <FormControl >
-            <InputLabel>NodeJS</InputLabel>
-            <Select value={node} label="node" onChange={handleNodeChange} defaultValue={"14.18.0"}> 
-                <MenuItem value={"14.18.0"}>Node 14 LTS</MenuItem>
-            </Select>
-            <FormHelperText>Choose a NodeJS version</FormHelperText>
-          </FormControl>
-        </div>
-      );
-    }
+  const [node, setNode] = React.useState('');
+  const handleNodeChange = (event: SelectChangeEvent) => {
+    setNode(event.target.value);
+    };
+  
+  return (
+      <div>
+        <FormControl >
+          <InputLabel>NodeJS</InputLabel>
+          <Select value={node} label="node" onChange={handleNodeChange} defaultValue={"14.18.0"}> 
+              <MenuItem value={"14.18.0"}>Node 14 LTS</MenuItem>
+          </Select>
+          <FormHelperText>Choose a NodeJS version</FormHelperText>
+        </FormControl>
+      </div>
+    );
+  }
   
 // this needs a different component because it can accept more than one value
 function DummyDbPicker() {
-    const [dummyDb, setDummyDb] = React.useState('');
-    const handleDummyDbChange = (event: SelectChangeEvent) => {
-      setDummyDb(event.target.value);
-      };
+  const [dummyDb, setDummyDb] = React.useState('');
+  const handleDummyDbChange = (event: SelectChangeEvent) => {
+    setDummyDb(event.target.value);
+    };
 
-    return (
-        <div>
-          <FormControl >
-            <InputLabel>Dummy Data</InputLabel>
-            <Select value={dummyDb} label="dummyDb" onChange={handleDummyDbChange}>
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={"mysql"}>MySQL</MenuItem>
-            </Select>
-            <FormHelperText>Choose a Dummy Datasource</FormHelperText>
-          </FormControl>
-        </div>
-      );
-    }
+  return (
+      <div>
+        <FormControl >
+          <InputLabel>Dummy Data</InputLabel>
+          <Select value={dummyDb} label="dummyDb" onChange={handleDummyDbChange}>
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={"mysql"}>MySQL</MenuItem>
+          </Select>
+          <FormHelperText>Choose a Dummy Datasource</FormHelperText>
+        </FormControl>
+      </div>
+    );
+  }
